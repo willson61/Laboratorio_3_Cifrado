@@ -7,21 +7,21 @@ public class ZigZag {
     public ArrayList<ArrayList<Character>> Panel = new ArrayList<>();
 
     public String cifrado(String nivel, String texto){
-        char[] textoacifrar = texto.toCharArray();
         int N = Integer.parseInt(nivel);
         int longitud = texto.length();
-        int tamañoOlas = (N*2) - 2;
+        int tamanoOlas = (N*2) - 2;
         int numeroOlas = 0;
         String TextoCifrado = "";
-        if (longitud%tamañoOlas != 0){
-            while (longitud%tamañoOlas != 0){
+        if (longitud%tamanoOlas != 0){
+            while (longitud%tamanoOlas != 0){
                 longitud++;
                 texto += "|";
             }
-            numeroOlas = longitud/tamañoOlas;
+            numeroOlas = longitud/tamanoOlas;
         }else{
-            numeroOlas = longitud/tamañoOlas;
+            numeroOlas = longitud/tamanoOlas;
         }
+        char[] textoacifrar = texto.toCharArray();
 
         for (int i = 0; i < N; i++){
             ArrayList<Character> renglon = new ArrayList<>();
@@ -56,7 +56,58 @@ public class ZigZag {
                 TextoCifrado += Panel.get(i).get(j);
             }
         }
-        
+
         return TextoCifrado;
+    }
+
+    public String Descifrar (String Nivel, String Texto){
+        ArrayList<char[]> bloques = new ArrayList<>();
+        int N = Integer.parseInt(Nivel);
+        int longitud = Texto.length();
+        int tamanoOlas = (N*2) - 2;
+        int numeroOlas = longitud/tamanoOlas;
+        int tamanoBloque = 2 * tamanoOlas;
+        char[] crestas = Texto.substring(0, numeroOlas).toCharArray();
+        char[] bases = Texto.substring(Texto.length() - numeroOlas).toCharArray();
+        int indice = numeroOlas;
+        int finbloques = Texto.length() - numeroOlas;
+
+        while(indice <  finbloques){
+            bloques.add(Texto.substring(indice, tamanoBloque).toCharArray());
+            indice = indice + tamanoBloque;
+        }
+
+        int cantidadBloqques = Texto.substring(numeroOlas, Texto.length()-numeroOlas).length();
+        int indicecrestas = 0;
+        int indicebases = 0;
+        int indicebloques = 0;
+        boolean terminado = false;
+        boolean descendente = true;
+        String textoDescifrado = "";
+
+        while (!terminado){
+            if (descendente){
+                textoDescifrado += crestas[indicecrestas];
+                indicecrestas++;
+                for (int i = 0; i < cantidadBloqques; i++){
+                    textoDescifrado += bloques.get(i)[indicebloques];
+                }
+                indicebloques++;
+                descendente = false;
+            }else{
+                textoDescifrado += bases[indicebases];
+                indicebases++;
+                for (int i = cantidadBloqques - 1; i >= 0; i--){
+                    textoDescifrado += bloques.get(i)[indicebloques];
+                }
+                indicebloques++;
+                descendente = true;
+                if (indicebases == numeroOlas){
+                    terminado = true;
+                }
+            }
+        }
+        
+        return textoDescifrado;
     }
 }
