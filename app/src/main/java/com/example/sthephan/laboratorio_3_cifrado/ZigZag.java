@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ZigZag {
 
-    public ArrayList<ArrayList<Character>> Panel = new ArrayList<>();
+    public ArrayList<ArrayList<Character>> Panel = new ArrayList<>(); //Arraylist que contiene los renglones
 
     public String cifrado(String nivel, String texto){
         int N = Integer.parseInt(nivel);
@@ -12,7 +12,7 @@ public class ZigZag {
         int tamanoOlas = (N*2) - 2;
         int numeroOlas = 0;
         String TextoCifrado = "";
-        if (longitud%tamanoOlas != 0){
+        if (longitud%tamanoOlas != 0){    // Si el texto no completa la ultima ola, se le agregan caracteres extra para completarla
             while (longitud%tamanoOlas != 0){
                 longitud++;
                 texto += "|";
@@ -23,7 +23,7 @@ public class ZigZag {
         }
         char[] textoacifrar = texto.toCharArray();
 
-        for (int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++){  //se llena el panel con la cantidad de renglones especificada por el usuario
             ArrayList<Character> renglon = new ArrayList<>();
             Panel.add(renglon);
         }
@@ -31,7 +31,7 @@ public class ZigZag {
         int numeroRenglon = 0;
         boolean descendente = true;
 
-        for (int i = 0; i < longitud; i++){
+        for (int i = 0; i < longitud; i++){ //proceso donde se cifra el texto
             if (descendente){
                 Panel.get(numeroRenglon).add(textoacifrar[i]);
                 if (numeroRenglon == N - 1){
@@ -51,7 +51,7 @@ public class ZigZag {
             }
         }
 
-        for (int i = 0; i < Panel.size(); i++){
+        for (int i = 0; i < Panel.size(); i++){  //proceso donde se arma la cadena final
             for (int j = 0; j < Panel.get(i).size(); j++){
                 TextoCifrado += Panel.get(i).get(j);
             }
@@ -61,7 +61,7 @@ public class ZigZag {
     }
 
     public String Descifrar (String Nivel, String Texto){
-        ArrayList<char[]> bloques = new ArrayList<>();
+        ArrayList<char[]> bloques = new ArrayList<>(); //Arraylist que contiene los bloques necesarios
         int N = Integer.parseInt(Nivel);
         int longitud = Texto.length();
         int tamanoOlas = (N*2) - 2;
@@ -72,7 +72,7 @@ public class ZigZag {
         int indice = numeroOlas;
         int finbloques = Texto.length() - numeroOlas;
 
-        while(indice <  finbloques){
+        while(indice <  finbloques){ //proceso para llenar los bloques con las cadenas respectivas
             bloques.add(Texto.substring(indice, tamanoBloque).toCharArray());
             indice = indice + tamanoBloque;
         }
@@ -85,7 +85,7 @@ public class ZigZag {
         boolean descendente = true;
         String textoDescifrado = "";
 
-        while (!terminado){
+        while (!terminado){ // proceso para descifrar el texto original y armar el texto resultante
             if (descendente){
                 textoDescifrado += crestas[indicecrestas];
                 indicecrestas++;
