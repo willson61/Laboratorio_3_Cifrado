@@ -25,6 +25,8 @@ public class CypherZigZag extends AppCompatActivity {
 
 
     public static Uri file;
+    public static ZigZag zzCypher = new ZigZag();
+
     @BindView(R.id.labelArchivo)
     TextView labelArchivo;
     @BindView(R.id.labelContenido)
@@ -38,6 +40,7 @@ public class CypherZigZag extends AppCompatActivity {
         setContentView(R.layout.activity_cypher_zig_zag);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
+        txtNivel.clearFocus();
     }
 
     @OnClick({R.id.btnBuscar, R.id.btnCancelar, R.id.btnCifrar})
@@ -59,6 +62,30 @@ public class CypherZigZag extends AppCompatActivity {
                 borrarCampos();
                 break;
             case R.id.btnCifrar:
+                if(CypherZigZag.file != null){
+                    try{
+                        if(txtNivel.getText().toString().equals("")){
+                            Toast message = Toast.makeText(getApplicationContext(), "Ingrese un nivel para poder continuar con el cifrado", Toast.LENGTH_LONG);
+                            message.show();
+                        }
+                        else{
+                            String textoCifrado = zzCypher.cifrado(txtNivel.getText().toString(), readTextFromUri(CypherZigZag.file));
+                            CypherZigZagResult.textoCifrado = textoCifrado;
+                            CypherZigZagResult.file1 = CypherZigZag.file;
+                            borrarCampos();
+                            finish();
+                            startActivity(new Intent(CypherZigZag.this, CypherZigZagResult.class));
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Toast message = Toast.makeText(getApplicationContext(), "Error en cifrado de texto", Toast.LENGTH_LONG);
+                        message.show();
+                    }
+                }
+                else{
+                    Toast message = Toast.makeText(getApplicationContext(), "Seleccione un archivo para poder continuar", Toast.LENGTH_LONG);
+                    message.show();
+                }
                 break;
         }
     }
@@ -79,14 +106,14 @@ public class CypherZigZag extends AppCompatActivity {
                 }
                 else{
                     borrarCampos();
-                    Toast message = Toast.makeText(getApplicationContext(), "El archivo seleccionado no posee la extension .txt para compresion. Por favor seleccione un archivo de extension .txt", Toast.LENGTH_LONG);
+                    Toast message = Toast.makeText(getApplicationContext(), "El archivo seleccionado no posee la extension .txt para cifrado. Por favor seleccione un archivo de extension .txt", Toast.LENGTH_LONG);
                     message.show();
                 }
             }catch(Exception e){
                 e.printStackTrace();
             }
         } else if (resultCode == RESULT_CANCELED) {
-            Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con la compresion", Toast.LENGTH_LONG);
+            Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con el cifrado", Toast.LENGTH_LONG);
             message.show();
             borrarCampos();
         }
@@ -126,5 +153,6 @@ public class CypherZigZag extends AppCompatActivity {
         labelArchivo.setText(null);
         labelContenido.setText(null);
         txtNivel.setText(null);
+        CypherZigZag.zzCypher = new ZigZag();
     }
 }
