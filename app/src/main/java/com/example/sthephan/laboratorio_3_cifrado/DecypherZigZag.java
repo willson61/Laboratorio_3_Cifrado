@@ -80,7 +80,7 @@ public class DecypherZigZag extends AppCompatActivity {
                         }
                     }catch (Exception e){
                         e.printStackTrace();
-                        Toast message = Toast.makeText(getApplicationContext(), "Error en decifrado de texto", Toast.LENGTH_LONG);
+                        Toast message = Toast.makeText(getApplicationContext(), "Error en decifrado de texto: " + e.toString(), Toast.LENGTH_LONG);
                         message.show();
                     }
                 }
