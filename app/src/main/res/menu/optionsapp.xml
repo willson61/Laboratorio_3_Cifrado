@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opCifradoZigZag"
+        android:title="@string/cifrado_zig_zag" />
+    <item
+        android:id="@+id/opDecifradoZigZag"
+        android:title="@string/decifrar_zig_zag" />
+</menu>

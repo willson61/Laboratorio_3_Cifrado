@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Laboratorio_3_Cifrado</string>
+    <string name="cifrado_zig_zag">Cifrar Zig Zag</string>
+    <string name="buscar">Buscar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="cifrar">Cifrar</string>
+    <string name="guardar">Guardar</string>
+    <string name="borrar">Borrar</string>
+    <string name="decifrar_zig_zag">Decifrar Zig Zag</string>
+    <string name="texto_decifrado">Texto Decifrado</string>
+    <string name="texto_cifrado_con_algoritmo_zig_zag">Texto Cifrado con algoritmo Zig Zag</string>
+    <string name="decifrar">Decifrar</string>
 </resources>

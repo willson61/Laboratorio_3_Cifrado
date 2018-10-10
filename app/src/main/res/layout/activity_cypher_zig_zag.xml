@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CypherZigZag">
+
+    <Button
+        android:id="@+id/btnBuscar"
+        style="@android:style/Widget.Button"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/buscar" />
+
+    <Button
+        android:id="@+id/btnCancelar"
+        style="@android:style/Widget.Button"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnBuscar"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/cancelar" />
+
+    <TextView
+        android:id="@+id/labelArchivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnBuscar"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="89dp" />
+
+    <Button
+        android:id="@+id/btnCifrar"
+        style="@android:style/Widget.Button"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/btnBuscar"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/cifrar" />
+
+    <TextView
+        android:id="@+id/labelContenido"
+        android:layout_width="337dp"
+        android:layout_height="243dp"
+        android:layout_alignStart="@+id/btnBuscar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="20dp"
+        android:scrollbars="vertical"/>
+
+    <EditText
+        android:id="@+id/txtNivel"
+        android:layout_width="337dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnBuscar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="82dp"
+        android:ems="10"
+        android:inputType="number" />
+
+</RelativeLayout>
