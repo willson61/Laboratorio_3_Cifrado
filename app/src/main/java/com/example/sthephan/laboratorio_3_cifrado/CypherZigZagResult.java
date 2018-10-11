@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -44,10 +46,8 @@ public class CypherZigZagResult extends AppCompatActivity {
         setContentView(R.layout.activity_cypher_zig_zag_result);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
-        String[] prueba = CypherZigZagResult.file1.getPath().split("/");
-        fileName = prueba[prueba.length - 1].replace(".txt", "");
-        String prueba2 = prueba[prueba.length - 1].replace(".txt", ".cif");
-        labelNombre.setText(prueba2);
+        fileName = obtenerNombreDeArchivoDeUri(CypherZigZagResult.file1).replace(".txt", ".cif");
+        labelNombre.setText(fileName);
         labelContenido.setText(CypherZigZagResult.textoCifrado);
     }
 
@@ -74,7 +74,8 @@ public class CypherZigZagResult extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1234 && resultCode == RESULT_OK && data.getData().getPath().contains(".cif")) {
+        String name = obtenerNombreDeArchivoDeUri(data.getData());
+        if (requestCode == 1234 && resultCode == RESULT_OK && name.contains(".cif")) {
             try{
                 Uri selectedFile = data.getData();
                 CypherZigZagResult.file2 = selectedFile;
@@ -96,11 +97,11 @@ public class CypherZigZagResult extends AppCompatActivity {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con el cifrado", Toast.LENGTH_LONG);
             message.show();
         }
-        else if (!data.getData().getPath().contains(".cif")){
+        else if (!name.contains(".cif")){
             Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .cif para guardar el archivo cifrado", Toast.LENGTH_LONG);
             message.show();
         }
-        if (checkURIResource(CypherZigZagResult.this.getApplicationContext(), CypherZigZagResult.file2)) {
+        if (uriExiste(CypherZigZagResult.this.getApplicationContext(), CypherZigZagResult.file2)) {
             Toast message = Toast.makeText(getApplicationContext(), "El archivo se a creado exitosamente", Toast.LENGTH_LONG);
             message.show();
             borrarCampos();
@@ -115,7 +116,26 @@ public class CypherZigZagResult extends AppCompatActivity {
         }
     }
 
-    public static boolean checkURIResource(Context context, Uri uri) {
+    public String obtenerNombreDeArchivoDeUri(Uri uri)
+    {
+        String displayName = "";
+        Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
+        try {
+            // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
+            // "if there's anything to look at, look at it" conditionals.
+            if (cursor != null && cursor.moveToFirst()) {
+
+                // Note it's called "Display Name".  This is
+                // provider-specific, and might not necessarily be the file name.
+                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            }
+        } finally {
+            cursor.close();
+        }
+        return displayName;
+    }
+
+    public static boolean uriExiste(Context context, Uri uri) {
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         return (cursor != null && cursor.moveToFirst());
     }

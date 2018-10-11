@@ -3,8 +3,10 @@ package com.example.sthephan.laboratorio_3_cifrado;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -70,8 +72,7 @@ public class DecypherZigZag extends AppCompatActivity {
                             String textoDecifrado = zzDecypher.Descifrar(txtNivel.getText().toString(), readTextFromUri(DecypherZigZag.file));
                             DecypherZigZagResult.textoDecifrado = textoDecifrado;
                             DecypherZigZagResult.file = CypherZigZag.file;
-                            String[] pr = DecypherZigZag.file.getPath().split("/");
-                            DecypherZigZagResult.nombreArchivo = pr[pr.length - 1].replace(".cif", "");
+                            DecypherZigZagResult.nombreArchivo = obtenerNombreDeArchivoDeUri(DecypherZigZag.file);
                             labelArchivo.setText(null);
                             labelContenido.setText(null);
                             DecypherZigZag.file = null;
@@ -98,11 +99,11 @@ public class DecypherZigZag extends AppCompatActivity {
         if (requestCode == 123 && resultCode == RESULT_OK) {
             try{
                 Uri selectedFile = data.getData();
-                String[] prueba = selectedFile.getPath().split("/");
-                if(prueba[prueba.length - 1].contains(".cif")){
+                String name = obtenerNombreDeArchivoDeUri(selectedFile);
+                if(name.contains(".cif")){
                     Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
                     message.show();
-                    labelArchivo.setText(prueba[prueba.length - 1]);
+                    labelArchivo.setText(name);
                     labelContenido.setText(readTextFromUri(selectedFile));
                     DecypherZigZag.file = selectedFile;
                 }
@@ -120,6 +121,25 @@ public class DecypherZigZag extends AppCompatActivity {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con el decifrado", Toast.LENGTH_LONG);
             message.show();
         }
+    }
+
+    public String obtenerNombreDeArchivoDeUri(Uri uri)
+    {
+        String displayName = "";
+        Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
+        try {
+            // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
+            // "if there's anything to look at, look at it" conditionals.
+            if (cursor != null && cursor.moveToFirst()) {
+
+                // Note it's called "Display Name".  This is
+                // provider-specific, and might not necessarily be the file name.
+                displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            }
+        } finally {
+            cursor.close();
+        }
+        return displayName;
     }
 
     @Override
