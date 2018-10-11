@@ -9,6 +9,7 @@ public class ZigZag {
 
 
     public String cifrado(String nivel, String texto){
+        Panel = new ArrayList<>();
         int N = Integer.parseInt(nivel);
         int longitud = texto.length();
         int tamanoOlas = (N*2) - 2;
@@ -64,6 +65,7 @@ public class ZigZag {
 
     public String Descifrar (String Nivel, String Texto){
         //ArrayList<char[]> bloques = new ArrayList<>(); //Arraylist que contiene los bloques necesarios
+        bloques = new ArrayList<>();
         int N = Integer.parseInt(Nivel);
         int longitud = Texto.length();
         int tamanoOlas = (N*2) - 2;
