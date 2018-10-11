@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class ZigZag {
 
     public ArrayList<ArrayList<Character>> Panel = new ArrayList<>(); //Arraylist que contiene los renglones
+    public ArrayList<char[]> bloques = new ArrayList<>(); //Arraylist que contiene los bloques necesarios
+
 
     public String cifrado(String nivel, String texto){
         int N = Integer.parseInt(nivel);
@@ -61,23 +63,23 @@ public class ZigZag {
     }
 
     public String Descifrar (String Nivel, String Texto){
-        ArrayList<char[]> bloques = new ArrayList<>(); //Arraylist que contiene los bloques necesarios
+        //ArrayList<char[]> bloques = new ArrayList<>(); //Arraylist que contiene los bloques necesarios
         int N = Integer.parseInt(Nivel);
         int longitud = Texto.length();
         int tamanoOlas = (N*2) - 2;
         int numeroOlas = longitud/tamanoOlas;
-        int tamanoBloque = 2 * tamanoOlas;
+        int tamanoBloque = 2 * numeroOlas;
         char[] crestas = Texto.substring(0, numeroOlas).toCharArray();
         char[] bases = Texto.substring(Texto.length() - numeroOlas).toCharArray();
         int indice = numeroOlas;
         int finbloques = Texto.length() - numeroOlas;
 
         while(indice <  finbloques){ //proceso para llenar los bloques con las cadenas respectivas
-            bloques.add(Texto.substring(indice, tamanoBloque).toCharArray());
+            bloques.add(Texto.substring(indice, indice + tamanoBloque).toCharArray());
             indice = indice + tamanoBloque;
         }
 
-        int cantidadBloqques = Texto.substring(numeroOlas, Texto.length()-numeroOlas).length();
+        int cantidadBloqques = Texto.substring(numeroOlas, Texto.length()-numeroOlas).length() / tamanoBloque;
         int indicecrestas = 0;
         int indicebases = 0;
         int indicebloques = 0;
@@ -107,7 +109,7 @@ public class ZigZag {
                 }
             }
         }
-        
+        textoDescifrado = textoDescifrado.replace("|", "");
         return textoDescifrado;
     }
 }
