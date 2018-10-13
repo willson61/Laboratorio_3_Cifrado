@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CypherSDES">
+    tools:context=".DecypherSDES">
 
     <Button
         android:id="@+id/btnBuscar"
@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
         android:text="@string/buscar"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btnCancelar"
@@ -32,8 +32,16 @@
         android:text="@string/cancelar"
         android:textColor="@android:color/white" />
 
+    <TextView
+        android:id="@+id/labelArchivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnBuscar"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="90dp" />
+
     <Button
-        android:id="@+id/btnCifrar"
+        android:id="@+id/btnDecifrar"
         style="@android:style/Widget.Button"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
@@ -44,7 +52,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginBottom="20dp"
         android:background="@color/colorPrimary"
-        android:text="@string/cifrar"
+        android:text="@string/decifrar"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -68,18 +76,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginBottom="80dp"
         android:ems="10"
         android:inputType="number" />
-
-    <TextView
-        android:id="@+id/labelNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnBuscar"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="90dp" />
-
 </RelativeLayout>

@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CypherSDESResult extends AppCompatActivity {
+public class DecypherSDESResult extends AppCompatActivity {
 
     @BindView(R.id.labelNombre)
     TextView labelNombre;
@@ -29,7 +29,7 @@ public class CypherSDESResult extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cypher_sdesresult);
+        setContentView(R.layout.activity_decypher_sdesresult);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -75,7 +75,7 @@ public class CypherSDESResult extends AppCompatActivity {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         finish();
-                        startActivity(new Intent(CypherSDESResult.this, MainActivity.class));
+                        startActivity(new Intent(DecypherSDESResult.this, MainActivity.class));
                     }
                 }).create().show();
     }

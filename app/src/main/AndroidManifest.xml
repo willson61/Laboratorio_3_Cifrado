@@ -21,7 +21,9 @@
         <activity android:name=".DecypherZigZag" />
         <activity android:name=".DecypherZigZagResult" />
         <activity android:name=".CypherSDES" />
-        <activity android:name=".CypherSDESResult"></activity>
+        <activity android:name=".CypherSDESResult" />
+        <activity android:name=".DecypherSDES" />
+        <activity android:name=".DecypherSDESResult"></activity>
     </application>
 
 </manifest>

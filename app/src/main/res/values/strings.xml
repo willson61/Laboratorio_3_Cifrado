@@ -10,4 +10,5 @@
     <string name="texto_decifrado">Texto Decifrado</string>
     <string name="texto_cifrado_con_algoritmo_zig_zag">Texto Cifrado con algoritmo Zig Zag</string>
     <string name="decifrar">Decifrar</string>
+    <string name="texto_cifrado_con_algoritmo_s_des">Texto Cifrado con Algoritmo S-DES</string>
 </resources>

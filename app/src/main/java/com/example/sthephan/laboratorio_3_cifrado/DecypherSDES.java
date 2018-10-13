@@ -20,43 +20,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CypherSDES extends AppCompatActivity {
+public class DecypherSDES extends AppCompatActivity {
 
+    @BindView(R.id.labelArchivo)
+    TextView labelArchivo;
     @BindView(R.id.labelContenido)
     TextView labelContenido;
     @BindView(R.id.txtClave)
     EditText txtClave;
-    @BindView(R.id.labelNombre)
-    TextView labelNombre;
-
-    public static Uri file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cypher_sdes);
+        setContentView(R.layout.activity_decypher_sdes);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    @OnClick({R.id.btnBuscar, R.id.btnCancelar, R.id.btnCifrar})
+    @OnClick({R.id.btnBuscar, R.id.btnCancelar, R.id.btnDecifrar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBuscar:
-                if(CypherSDES.file != null){
-                    borrarCampos();
-                }
-                else{
-                    Intent intent = new Intent()
-                            .addCategory(Intent.CATEGORY_OPENABLE)
-                            .setType("*/*")
-                            .setAction(Intent.ACTION_OPEN_DOCUMENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select a File"), 123);
-                }
                 break;
             case R.id.btnCancelar:
                 break;
-            case R.id.btnCifrar:
+            case R.id.btnDecifrar:
                 break;
         }
     }
@@ -71,7 +59,7 @@ public class CypherSDES extends AppCompatActivity {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         finish();
-                        startActivity(new Intent(CypherSDES.this, MainActivity.class));
+                        startActivity(new Intent(DecypherSDES.this, MainActivity.class));
                     }
                 }).create().show();
     }
@@ -88,12 +76,5 @@ public class CypherSDES extends AppCompatActivity {
         input.close();
         reader.close();
         return stringbuilder.toString();
-    }
-
-    public void borrarCampos(){
-        CypherSDES.file = null;
-        labelNombre.setText(null);
-        labelContenido.setText(null);
-        txtClave.setText(null);
     }
 }

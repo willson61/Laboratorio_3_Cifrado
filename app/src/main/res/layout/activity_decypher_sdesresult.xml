@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CypherZigZagResult">
+    tools:context=".DecypherSDESResult">
 
     <TextView
         android:id="@+id/labelNombre"
@@ -65,5 +65,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
-        android:text="@string/texto_cifrado_con_algoritmo_zig_zag" />
+        android:text="@string/texto_decifrado" />
+
 </RelativeLayout>
