@@ -35,7 +35,8 @@
         android:layout_alignStart="@+id/labelNombre"
         android:layout_marginBottom="68dp"
         android:background="@color/colorPrimary"
-        android:text="@string/guardar" />
+        android:text="@string/guardar"
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btnBorrar"
@@ -46,7 +47,8 @@
         android:layout_alignTop="@+id/btnGuardar"
         android:layout_marginEnd="40dp"
         android:background="@color/colorPrimary"
-        android:text="@string/borrar" />
+        android:text="@string/borrar"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/labelGrafico1"

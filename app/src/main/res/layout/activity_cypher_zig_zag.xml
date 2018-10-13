@@ -16,18 +16,20 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
-        android:text="@string/buscar" />
+        android:text="@string/buscar"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btnCancelar"
         style="@android:style/Widget.Button"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btnBuscar"
+        android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
         android:background="@color/colorPrimary"
-        android:text="@string/cancelar" />
+        android:text="@string/cancelar"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/labelArchivo"
@@ -42,11 +44,12 @@
         style="@android:style/Widget.Button"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/btnBuscar"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:background="@color/colorPrimary"
-        android:text="@string/cifrar" />
+        android:text="@string/cifrar"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/labelContenido"

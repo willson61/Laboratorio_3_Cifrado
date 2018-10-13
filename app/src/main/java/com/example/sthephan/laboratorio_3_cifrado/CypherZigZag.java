@@ -69,7 +69,7 @@ public class CypherZigZag extends AppCompatActivity {
                             message.show();
                         }
                         else{
-                            String textoCifrado = zzCypher.cifrado(txtNivel.getText().toString(), readTextFromUri(CypherZigZag.file));
+                            String textoCifrado = zzCypher.cifrado(txtNivel.getText().toString(), leerTextoDeUri(CypherZigZag.file));
                             CypherZigZagResult.textoCifrado = textoCifrado;
                             CypherZigZagResult.file1 = CypherZigZag.file;
                             borrarCampos();
@@ -101,7 +101,7 @@ public class CypherZigZag extends AppCompatActivity {
                     Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
                     message.show();
                     labelArchivo.setText(prueba[prueba.length - 1]);
-                    labelContenido.setText(readTextFromUri(selectedFile));
+                    labelContenido.setText(leerTextoDeUri(selectedFile));
                     CypherZigZag.file = selectedFile;
                 }
                 else{
@@ -134,7 +134,7 @@ public class CypherZigZag extends AppCompatActivity {
                 }).create().show();
     }
 
-    private String readTextFromUri(Uri uri) throws IOException {
+    private String leerTextoDeUri(Uri uri) throws IOException {
         InputStream input = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder stringbuilder = new StringBuilder();

@@ -69,7 +69,7 @@ public class DecypherZigZag extends AppCompatActivity {
                             message.show();
                         }
                         else{
-                            String textoDecifrado = zzDecypher.Descifrar(txtNivel.getText().toString(), readTextFromUri(DecypherZigZag.file));
+                            String textoDecifrado = zzDecypher.Descifrar(txtNivel.getText().toString(), leerTextoDeUri(DecypherZigZag.file));
                             DecypherZigZagResult.textoDecifrado = textoDecifrado;
                             DecypherZigZagResult.file = CypherZigZag.file;
                             DecypherZigZagResult.nombreArchivo = obtenerNombreDeArchivoDeUri(DecypherZigZag.file);
@@ -104,7 +104,7 @@ public class DecypherZigZag extends AppCompatActivity {
                     Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
                     message.show();
                     labelArchivo.setText(name);
-                    labelContenido.setText(readTextFromUri(selectedFile));
+                    labelContenido.setText(leerTextoDeUri(selectedFile));
                     DecypherZigZag.file = selectedFile;
                 }
                 else{
@@ -157,7 +157,7 @@ public class DecypherZigZag extends AppCompatActivity {
                 }).create().show();
     }
 
-    private String readTextFromUri(Uri uri) throws IOException {
+    private String leerTextoDeUri(Uri uri) throws IOException {
         InputStream input = getContentResolver().openInputStream(uri);
         BufferedReader reader = new BufferedReader(new InputStreamReader(input, UTF8));
         StringBuilder stringbuilder = new StringBuilder();
