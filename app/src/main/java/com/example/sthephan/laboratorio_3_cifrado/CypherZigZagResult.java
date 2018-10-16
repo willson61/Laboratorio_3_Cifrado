@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,8 @@ public class CypherZigZagResult extends AppCompatActivity {
     public static Uri file1;
     public static Uri file2;
     public static String fileName;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,26 @@ public class CypherZigZagResult extends AppCompatActivity {
         fileName = obtenerNombreDeArchivoDeUri(CypherZigZagResult.file1).replace(".txt", ".cif");
         labelNombre.setText(fileName);
         labelContenido.setText(CypherZigZagResult.textoCifrado);
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(false);
+
+                return false;
+            }
+        });
+        labelContenido.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.btnGuardar, R.id.btnBorrar})
@@ -76,7 +99,7 @@ public class CypherZigZagResult extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         String name = obtenerNombreDeArchivoDeUri(data.getData());
         if (requestCode == 1234 && resultCode == RESULT_OK && name.contains(".cif")) {
-            try{
+            try {
                 Uri selectedFile = data.getData();
                 CypherZigZagResult.file2 = selectedFile;
                 ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(selectedFile, "w");
@@ -88,7 +111,7 @@ public class CypherZigZagResult extends AppCompatActivity {
                 wr.close();
                 fos.close();
                 file.close();
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast message = Toast.makeText(getApplicationContext(), "Error al escribir al archivo cifrado", Toast.LENGTH_LONG);
                 message.show();
@@ -96,8 +119,7 @@ public class CypherZigZagResult extends AppCompatActivity {
         } else if (resultCode == RESULT_CANCELED) {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con el cifrado", Toast.LENGTH_LONG);
             message.show();
-        }
-        else if (!name.contains(".cif")){
+        } else if (!name.contains(".cif")) {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .cif para guardar el archivo cifrado", Toast.LENGTH_LONG);
             message.show();
         }
@@ -116,8 +138,7 @@ public class CypherZigZagResult extends AppCompatActivity {
         }
     }
 
-    public String obtenerNombreDeArchivoDeUri(Uri uri)
-    {
+    public String obtenerNombreDeArchivoDeUri(Uri uri) {
         String displayName = "";
         Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
         try {
@@ -152,7 +173,7 @@ public class CypherZigZagResult extends AppCompatActivity {
                 }).create().show();
     }
 
-    public void borrarCampos(){
+    public void borrarCampos() {
         CypherZigZagResult.textoCifrado = null;
         CypherZigZagResult.file1 = null;
         CypherZigZagResult.fileName = null;

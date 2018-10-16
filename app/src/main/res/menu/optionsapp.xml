@@ -9,4 +9,10 @@
     <item
         android:id="@+id/opDecifradoZigZag"
         android:title="@string/decifrar_zig_zag" />
+    <item
+        android:id="@+id/opCifradoSDES"
+        android:title="@string/cifrar_sdes" />
+    <item
+        android:id="@+id/opDecifradoSDES"
+        android:title="@string/decifrar_sdes" />
 </menu>

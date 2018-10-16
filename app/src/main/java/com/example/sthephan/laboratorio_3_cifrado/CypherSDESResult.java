@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -25,6 +27,8 @@ public class CypherSDESResult extends AppCompatActivity {
     TextView labelContenido;
     @BindView(R.id.labelGrafico1)
     TextView labelGrafico1;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,26 @@ public class CypherSDESResult extends AppCompatActivity {
         setContentView(R.layout.activity_cypher_sdesresult);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(false);
+
+                return false;
+            }
+        });
+        labelContenido.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.btnGuardar, R.id.btnBorrar})
@@ -44,8 +68,7 @@ public class CypherSDESResult extends AppCompatActivity {
         }
     }
 
-    public String obtenerNombreDeArchivoDeUri(Uri uri)
-    {
+    public String obtenerNombreDeArchivoDeUri(Uri uri) {
         String displayName = "";
         Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
         try {

@@ -11,4 +11,11 @@
     <string name="texto_cifrado_con_algoritmo_zig_zag">Texto Cifrado con algoritmo Zig Zag</string>
     <string name="decifrar">Decifrar</string>
     <string name="texto_cifrado_con_algoritmo_s_des">Texto Cifrado con Algoritmo S-DES</string>
+    <string name="ingrese_la_clave_de_cifrado">Ingrese la clave de cifrado:</string>
+    <string name="ingrese_la_clave_de_decifrado">Ingrese la Clave de Decifrado:</string>
+    <string name="nombre_del_archivo">Nombre del Archivo:</string>
+    <string name="cifrar_sdes">Cifrar SDES</string>
+    <string name="decifrar_sdes">Decifrar SDES</string>
+    <string name="ingrese_el_nivel_para_decifrar">Ingrese el nivel para decifrar</string>
+    <string name="ingrese_el_nivel_de_cifrado">Ingrese el nivel de cifrado:</string>
 </resources>

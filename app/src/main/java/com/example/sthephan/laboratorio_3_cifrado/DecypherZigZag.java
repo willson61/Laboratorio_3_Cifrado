@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ public class DecypherZigZag extends AppCompatActivity {
     private static Charset UTF8 = Charset.forName("UTF-8");
     public static Uri file;
     public static ZigZag zzDecypher = new ZigZag();
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,26 @@ public class DecypherZigZag extends AppCompatActivity {
         setContentView(R.layout.activity_decypher_zig_zag);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
-        txtNivel.clearFocus();
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(false);
+
+                return false;
+            }
+        });
+        labelContenido.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.btnBuscar, R.id.btnCancelar, R.id.btnDecifrar})
@@ -62,13 +85,12 @@ public class DecypherZigZag extends AppCompatActivity {
                 DecypherZigZag.file = null;
                 break;
             case R.id.btnDecifrar:
-                if(DecypherZigZag.file != null){
-                    try{
-                        if(txtNivel.getText().toString().equals("")){
+                if (DecypherZigZag.file != null) {
+                    try {
+                        if (txtNivel.getText().toString().equals("")) {
                             Toast message = Toast.makeText(getApplicationContext(), "Ingrese un nivel para poder continuar con el cifrado", Toast.LENGTH_LONG);
                             message.show();
-                        }
-                        else{
+                        } else {
                             String textoDecifrado = zzDecypher.Descifrar(txtNivel.getText().toString(), leerTextoDeUri(DecypherZigZag.file));
                             DecypherZigZagResult.textoDecifrado = textoDecifrado;
                             DecypherZigZagResult.file = CypherZigZag.file;
@@ -79,13 +101,12 @@ public class DecypherZigZag extends AppCompatActivity {
                             finish();
                             startActivity(new Intent(DecypherZigZag.this, DecypherZigZagResult.class));
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         Toast message = Toast.makeText(getApplicationContext(), "Error en decifrado de texto: " + e.toString(), Toast.LENGTH_LONG);
                         message.show();
                     }
-                }
-                else{
+                } else {
                     Toast message = Toast.makeText(getApplicationContext(), "Seleccione un archivo para poder continuar", Toast.LENGTH_LONG);
                     message.show();
                 }
@@ -97,24 +118,23 @@ public class DecypherZigZag extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 123 && resultCode == RESULT_OK) {
-            try{
+            try {
                 Uri selectedFile = data.getData();
                 String name = obtenerNombreDeArchivoDeUri(selectedFile);
-                if(name.contains(".cif")){
+                if (name.contains(".cif")) {
                     Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
                     message.show();
                     labelArchivo.setText(name);
                     labelContenido.setText(leerTextoDeUri(selectedFile));
                     DecypherZigZag.file = selectedFile;
-                }
-                else{
+                } else {
                     labelArchivo.setText(null);
                     labelContenido.setText(null);
                     DecypherZigZag.file = null;
                     Toast message = Toast.makeText(getApplicationContext(), "El archivo seleccionado no posee la extension .cif para decifrar. Por favor seleccione un archivo de extension .cif", Toast.LENGTH_LONG);
                     message.show();
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (resultCode == RESULT_CANCELED) {
@@ -123,8 +143,7 @@ public class DecypherZigZag extends AppCompatActivity {
         }
     }
 
-    public String obtenerNombreDeArchivoDeUri(Uri uri)
-    {
+    public String obtenerNombreDeArchivoDeUri(Uri uri) {
         String displayName = "";
         Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
         try {
@@ -163,11 +182,13 @@ public class DecypherZigZag extends AppCompatActivity {
         StringBuilder stringbuilder = new StringBuilder();
         int line = 0;
         while ((line = reader.read()) != -1) {
-            char val = (char)line;
+            char val = (char) line;
             stringbuilder.append(val);
         }
         input.close();
         reader.close();
         return stringbuilder.toString();
     }
+
+
 }

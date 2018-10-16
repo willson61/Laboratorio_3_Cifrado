@@ -7,8 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -28,6 +30,8 @@ public class DecypherSDES extends AppCompatActivity {
     TextView labelContenido;
     @BindView(R.id.txtClave)
     EditText txtClave;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,26 @@ public class DecypherSDES extends AppCompatActivity {
         setContentView(R.layout.activity_decypher_sdes);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(false);
+
+                return false;
+            }
+        });
+        labelContenido.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.btnBuscar, R.id.btnCancelar, R.id.btnDecifrar})
@@ -70,7 +94,7 @@ public class DecypherSDES extends AppCompatActivity {
         StringBuilder stringbuilder = new StringBuilder();
         int line = 0;
         while ((line = reader.read()) != -1) {
-            char val = (char)line;
+            char val = (char) line;
             stringbuilder.append(val);
         }
         input.close();

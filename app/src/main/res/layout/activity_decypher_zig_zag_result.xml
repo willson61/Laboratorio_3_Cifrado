@@ -1,70 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DecypherZigZagResult">
-
-    <TextView
-        android:id="@+id/labelNombre"
-        android:layout_width="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp" />
+        tools:context=".DecypherZigZagResult">
 
-    <TextView
-        android:id="@+id/labelContenido"
-        android:layout_width="wrap_content"
-        android:layout_height="302dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="40dp"
-        android:scrollbars="vertical" />
+        <TextView
+            android:id="@+id/labelNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="19dp" />
 
-    <Button
-        android:id="@+id/btnGuardar"
-        style="@android:style/Widget.Button"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelContenido"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/guardar"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/labelGrafico2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="19dp"
+            android:text="@string/nombre_del_archivo" />
 
-    <Button
-        android:id="@+id/btnBorrar"
-        style="@android:style/Widget.Button"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/labelContenido"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/borrar"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/labelContenido"
+            android:layout_width="wrap_content"
+            android:layout_height="419dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="40dp"
+            android:scrollbars="vertical" />
 
-    <TextView
-        android:id="@+id/labelGrafico1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/texto_decifrado" />
+        <Button
+            android:id="@+id/btnGuardar"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelContenido"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="23dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/guardar"
+            android:textColor="@android:color/white" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnBorrar"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelContenido"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/borrar"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelGrafico1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/texto_decifrado" />
+
+    </RelativeLayout>
+</ScrollView>

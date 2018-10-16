@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(MainActivity.this, DecypherZigZag.class));
                 return true;
+            case R.id.opCifradoSDES:
+                finish();
+                startActivity(new Intent(MainActivity.this, CypherSDES.class));
+                return true;
+            case R.id.opDecifradoSDES:
+                finish();
+                startActivity(new Intent(MainActivity.this, DecypherSDES.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

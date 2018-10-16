@@ -11,7 +11,9 @@ import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,8 @@ public class DecypherZigZagResult extends AppCompatActivity {
     public static String textoDecifrado;
     public static String nombreArchivo;
     public static Uri file;
+    @BindView(R.id.scrollview)
+    ScrollView scrollview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,26 @@ public class DecypherZigZagResult extends AppCompatActivity {
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
         labelContenido.setText(DecypherZigZagResult.textoDecifrado);
         labelNombre.setText(DecypherZigZagResult.nombreArchivo);
+        scrollview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(false);
+
+                return false;
+            }
+        });
+        labelContenido.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                labelContenido.getParent().requestDisallowInterceptTouchEvent(true);
+
+                return false;
+            }
+        });
     }
 
     @OnClick({R.id.btnGuardar, R.id.btnBorrar})
@@ -54,7 +78,7 @@ public class DecypherZigZagResult extends AppCompatActivity {
             case R.id.btnGuardar:
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("*/*");
+                intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TITLE, DecypherZigZagResult.nombreArchivo.replace(".cif", "").concat("Decifrado.txt"));
                 startActivityForResult(intent, 12345);
                 break;
@@ -72,7 +96,7 @@ public class DecypherZigZagResult extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         String name = obtenerNombreDeArchivoDeUri(data.getData());
         if (requestCode == 12345 && resultCode == RESULT_OK && name.contains(".txt")) {
-            try{
+            try {
                 Uri selectedFile = data.getData();
                 DecypherZigZagResult.file = selectedFile;
                 ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(selectedFile, "w");
@@ -84,24 +108,22 @@ public class DecypherZigZagResult extends AppCompatActivity {
                 wr.close();
                 fos.close();
                 file.close();
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (resultCode == RESULT_CANCELED) {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor seleccione un archivo para continuar con el decifrado", Toast.LENGTH_LONG);
             message.show();
-        }
-        else if (!name.contains(".txt")){
+        } else if (!name.contains(".txt")) {
             Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .txt para guardar el archivo decifrado", Toast.LENGTH_LONG);
             message.show();
         }
-        if (uriExiste(DecypherZigZagResult.this.getApplicationContext(), DecypherZigZagResult.file)){
+        if (uriExiste(DecypherZigZagResult.this.getApplicationContext(), DecypherZigZagResult.file)) {
             Toast message = Toast.makeText(getApplicationContext(), "El archivo se a creado exitosamente", Toast.LENGTH_LONG);
             message.show();
             finish();
             startActivity(new Intent(DecypherZigZagResult.this, MainActivity.class));
-        }
-        else{
+        } else {
             Toast message = Toast.makeText(getApplicationContext(), "El archivo no existe", Toast.LENGTH_LONG);
             message.show();
             finish();
@@ -109,17 +131,13 @@ public class DecypherZigZagResult extends AppCompatActivity {
         }
     }
 
-    public String obtenerNombreDeArchivoDeUri(Uri uri)
-    {
+    public String obtenerNombreDeArchivoDeUri(Uri uri) {
         String displayName = "";
         Cursor cursor = getApplicationContext().getContentResolver().query(uri, null, null, null, null, null);
         try {
             // moveToFirst() returns false if the cursor has 0 rows.  Very handy for
             // "if there's anything to look at, look at it" conditionals.
             if (cursor != null && cursor.moveToFirst()) {
-
-                // Note it's called "Display Name".  This is
-                // provider-specific, and might not necessarily be the file name.
                 displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
             }
         } finally {
