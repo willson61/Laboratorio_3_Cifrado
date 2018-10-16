@@ -49,7 +49,7 @@ public class MetodosSDES {
         binarioNuevo += indice[3];
         binarioNuevo += indice[1];
         binarioNuevo += indice[2];
-        return binarioNuevo;
+        return S0.get(binarioNuevo);
     }
 
     public String devolverValorS1(String binario){
@@ -59,6 +59,63 @@ public class MetodosSDES {
         binarioNuevo += indice[3];
         binarioNuevo += indice[1];
         binarioNuevo += indice[2];
-        return binarioNuevo;
+        return S1.get(binarioNuevo);
+    }
+
+    public String Switch(String binario){
+        String binarioReordenado = "";
+        binarioReordenado += binario.substring(binario.length()/2, binario.length());
+        binarioReordenado += binario.substring(0, binario.length() / 2);
+        return binarioReordenado;
+    }
+
+    public String XOR(String binario, String llave){
+        String resultadoXOR = "";
+        char[] arregloBinario = binario.toCharArray();
+        char[] arregloLlave = binario.toCharArray();
+        for (int i = 0; i < binario.length(); i++){
+            if (arregloBinario[i] == arregloLlave[i]){
+                resultadoXOR += "0";
+            }else{
+                resultadoXOR += "1";
+            }
+        }
+        return resultadoXOR;
+    }
+
+    public String extraerBinarioDeAscii(String codigoAscii){
+        String txtEnBinario = "";
+        for (int i = 0; i < codigoAscii.length(); i++){
+            String asciiABinario = Integer.toBinaryString(codigoAscii.charAt(i));
+            if (asciiABinario.length() % 8 != 0){
+                int cerosRestantes = 8 - asciiABinario.length() % 8;
+                for (int j = 0; j < cerosRestantes; j++){
+                    asciiABinario = "0" + asciiABinario;
+                }
+            }
+            txtEnBinario += asciiABinario;
+        }
+        return txtEnBinario;
+    }
+
+    public String textoToAscii(String txtBinario){
+        String txtAscii = "";
+        int cont = 0;
+        String ascii = "";
+        int num = 0;
+
+        for (int i = 0; i < txtBinario.length(); i++) {
+            cont++;
+            if (cont <= 8) {
+                ascii = ascii + txtBinario.charAt(i);
+                if ((cont == 8)||(i == txtBinario.length() - 1)){
+                    num = Integer.parseInt(ascii,2);
+                    txtAscii += (char)Integer.valueOf(num).intValue();
+                    cont = 0;
+                    ascii = "";
+                }
+            }
+        }
+        return txtAscii;
     }
 }

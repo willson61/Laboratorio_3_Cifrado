@@ -1,5 +1,7 @@
 package com.example.sthephan.laboratorio_3_cifrado;
 
+import android.icu.text.UnicodeSet;
+
 public class Permutaciones {
 
     public String Permutacion10(String binario){
@@ -37,6 +39,20 @@ public class Permutaciones {
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
             Salida[i] = Entrada[Permutacion[i]];
+        }
+        for (int i = 0; i < 8; i++){
+            binarioReordenado += Salida[i];
+        }
+        return binarioReordenado;
+    }
+
+    public String PermutacionInversa(String binario){
+        String binarioReordenado = "";
+        char[] Entrada = binario.toCharArray();
+        char[] Permutacion = {7, 6, 5, 4, 3, 2, 1, 0};
+        char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
+        for (int i = 0; i < 8; i++){
+            Salida[Permutacion[i]] = Entrada[i];
         }
         for (int i = 0; i < 8; i++){
             binarioReordenado += Salida[i];

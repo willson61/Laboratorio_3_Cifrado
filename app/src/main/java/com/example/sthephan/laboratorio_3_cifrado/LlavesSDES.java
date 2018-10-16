@@ -5,6 +5,14 @@ public class LlavesSDES {
     public String k1 = "";
     public String k2 = "";
 
+    public String getK1() {
+        return k1;
+    }
+
+    public String getK2() {
+        return k2;
+    }
+
     Permutaciones p = new Permutaciones();
 
     public String leftShift1(String binario){
