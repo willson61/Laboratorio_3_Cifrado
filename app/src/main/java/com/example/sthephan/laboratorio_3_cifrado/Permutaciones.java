@@ -32,7 +32,7 @@ public class Permutaciones {
     public String PermutacionInicial(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {7, 6, 5, 4, 3, 1, 2, 0};//determina el orden de la permutacion
+        char[] Permutacion = {1, 5, 2, 0, 3, 7, 4, 6};//determina el orden de la permutacion
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
             Salida[i] = Entrada[Permutacion[i]];
@@ -46,7 +46,7 @@ public class Permutaciones {
     public String PermutacionInversa(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {7, 6, 5, 4, 3, 1, 2, 0};
+        char[] Permutacion = {3, 0, 2, 4, 6, 1, 7, 5};
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
             Salida[Permutacion[i]] = Entrada[i];
