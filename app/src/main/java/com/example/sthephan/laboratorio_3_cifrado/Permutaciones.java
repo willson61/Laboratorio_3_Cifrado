@@ -46,7 +46,7 @@ public class Permutaciones {
     public String PermutacionInversa(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {7, 6, 5, 4, 3, 2, 1, 0};
+        char[] Permutacion = {7, 6, 5, 4, 3, 1, 2, 0};
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
             Salida[Permutacion[i]] = Entrada[i];

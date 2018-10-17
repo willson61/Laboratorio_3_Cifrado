@@ -15,11 +15,19 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.nio.charset.Charset;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CypherSDESResult extends AppCompatActivity {
+
+    private static Charset UTF8 = Charset.forName("UTF-8");
+    public static String textoCifrado;
+    public static Uri file1;
+    public static Uri file2;
+    public static String fileName;
 
     @BindView(R.id.labelNombre)
     TextView labelNombre;
@@ -36,6 +44,9 @@ public class CypherSDESResult extends AppCompatActivity {
         setContentView(R.layout.activity_cypher_sdesresult);
         ButterKnife.bind(this);
         labelContenido.setMovementMethod(new ScrollingMovementMethod());
+        fileName = obtenerNombreDeArchivoDeUri(CypherSDESResult.file1).replace(".txt", ".cif");
+        labelNombre.setText(fileName);
+        labelContenido.setText(CypherSDESResult.textoCifrado);
         scrollview.setOnTouchListener(new View.OnTouchListener() {
 
             @Override

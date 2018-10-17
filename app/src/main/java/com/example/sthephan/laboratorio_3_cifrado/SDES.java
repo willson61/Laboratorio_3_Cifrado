@@ -22,7 +22,7 @@ public class SDES {
         String ResultadoXOR2 = Metodos.XOR(pasoInicial.substring(0, pasoInicial.length()/2), PasoP4);
         String finFK1 = ResultadoXOR2 + pasoInicial.substring(pasoInicial.length()/2, pasoInicial.length());
         String ResultadoSW = Metodos.Switch(finFK1);
-        String pasoEP2 = ResultadoSW.substring(ResultadoSW.length()/2);
+            String pasoEP2 = ResultadoSW.substring(ResultadoSW.length()/2);
         String pasoXOR3 = Permutacion.ExpandiryPermutar(pasoEP2);
         String resultadoXOR3 = Metodos.XOR(pasoXOR3, Llaves.getK2());
         String pasoS02 = resultadoXOR3.substring(0, resultadoXOR3.length()/2);
@@ -46,7 +46,7 @@ public class SDES {
         String pasoInicial = Permutacion.PermutacionInicial(binario);
         String pasoEP = pasoInicial.substring(pasoInicial.length()/2);
         String pasoXOR = Permutacion.ExpandiryPermutar(pasoEP);
-        String resultadoXOR = Metodos.XOR(pasoXOR, Llaves.getK2());
+        String resultadoXOR = Metodos.XOR(pasoXOR, Llaves.getK1());
         String pasoS0 = resultadoXOR.substring(0, resultadoXOR.length()/2);
         String pasoS1 = resultadoXOR.substring(resultadoXOR.length()/2);
         String pasoS0Resultado = Metodos.devolverValorS0(pasoS0);
@@ -57,7 +57,7 @@ public class SDES {
         String ResultadoSW = Metodos.Switch(finFK1);
         String pasoEP2 = ResultadoSW.substring(ResultadoSW.length()/2);
         String pasoXOR3 = Permutacion.ExpandiryPermutar(pasoEP2);
-        String resultadoXOR3 = Metodos.XOR(pasoXOR3, Llaves.getK1());
+        String resultadoXOR3 = Metodos.XOR(pasoXOR3, Llaves.getK2());
         String pasoS02 = resultadoXOR3.substring(0, resultadoXOR3.length()/2);
         String pasoS12 = resultadoXOR3.substring(resultadoXOR3.length()/2);
         String pasoS0Resultado2 = Metodos.devolverValorS0(pasoS02);
