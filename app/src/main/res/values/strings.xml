@@ -18,4 +18,6 @@
     <string name="decifrar_sdes">Decifrar SDES</string>
     <string name="ingrese_el_nivel_para_decifrar">Ingrese el nivel para decifrar</string>
     <string name="ingrese_el_nivel_de_cifrado">Ingrese el nivel de cifrado:</string>
+    <string name="bienvenido_al_laboratorio_no_3_algoritmos_de_cifrado">Bienvenido al Laboratorio No. 3: Algoritmos de Cifrado</string>
+    <string name="para_empezar_seleccione_una_de_las_opciones_del_menu_de_la_esquina_superior_derecha">Para empezar seleccione una de las opciones del menu de la esquina superior derecha.</string>
 </resources>
