@@ -87,6 +87,7 @@ public class DecypherSDES extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select a File"), 123);
                 break;
             case R.id.btnCancelar:
+                borrarCampos();
                 break;
             case R.id.btnDecifrar:
                 if (DecypherSDES.file1 != null && !labelContenido.getText().toString().equals("")) {
@@ -159,22 +160,14 @@ public class DecypherSDES extends AppCompatActivity {
                 DecypherSDES.file2 = selectedFile;
                 decifrado.Llaves.generarLlaves(txtClave.getText().toString());
                 decifrado.Metodos.setearSBoxes();
-                //cifrarCaracteresDeUri(CypherSDES.file1);
                 String text = "";
                 for(int i = 0; i < labelContenido.getText().toString().toCharArray().length; i++){
                     text += decifrado.Descifrar(labelContenido.getText().toString().charAt(i));
                 }
-                escribirCaracterAUri(DecypherSDES.file2, text);
-                /*int cont = 0;
-                Character entrada = leerCaracterDeUri(CypherSDES.file1, cont);
-                while(entrada != '\u0000'){
-                    escribirCaracterAUri(CypherSDES.file2, cifrado.Cifrar(entrada));
-                    cont++;
-                    entrada = leerCaracterDeUri(CypherSDES.file1, cont);
-                }*/
+                escribirTextoAUri(DecypherSDES.file2, text);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast message = Toast.makeText(getApplicationContext(), "Error al escribir al archivo cifrado", Toast.LENGTH_LONG);
+                Toast message = Toast.makeText(getApplicationContext(), "Error al escribir al archivo decifrado", Toast.LENGTH_LONG);
                 message.show();
             }
             if (uriExiste(DecypherSDES.this.getApplicationContext(), DecypherSDES.file2)) {
@@ -190,8 +183,8 @@ public class DecypherSDES extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(DecypherSDES.this, MainActivity.class));
             }
-        } else if (!name.contains(".scif")) {
-            Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .cif para guardar el archivo cifrado", Toast.LENGTH_LONG);
+        } else if (!name.contains(".txt")) {
+            Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .txt para guardar el archivo decifrado", Toast.LENGTH_LONG);
             message.show();
         }
     }
@@ -201,18 +194,7 @@ public class DecypherSDES extends AppCompatActivity {
         return (cursor != null && cursor.moveToFirst());
     }
 
-    public void escribirCaracterAUri(Uri uri, Character caracter) throws IOException{
-        ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(uri, "wa");
-        FileOutputStream fos = new FileOutputStream(file.getFileDescriptor());
-        Writer wr = new OutputStreamWriter(fos, UTF8);
-        wr.write(caracter);
-        wr.flush();
-        wr.close();
-        fos.close();
-        file.close();
-    }
-
-    public void escribirCaracterAUri(Uri uri, String caracter) throws IOException{
+    public void escribirTextoAUri(Uri uri, String caracter) throws IOException{
         ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(uri, "wa");
         FileOutputStream fos = new FileOutputStream(file.getFileDescriptor());
         Writer wr = new OutputStreamWriter(fos, UTF8);
@@ -289,5 +271,6 @@ public class DecypherSDES extends AppCompatActivity {
         labelArchivo.setText(null);
         labelContenido.setText(null);
         txtClave.setText(null);
+        decifrado = new SDES();
     }
 }

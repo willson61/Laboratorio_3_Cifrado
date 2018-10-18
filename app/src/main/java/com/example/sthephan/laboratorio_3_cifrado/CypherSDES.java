@@ -162,19 +162,11 @@ public class CypherSDES extends AppCompatActivity {
                 CypherSDES.file2 = selectedFile;
                 cifrado.Llaves.generarLlaves(txtClave.getText().toString());
                 cifrado.Metodos.setearSBoxes();
-                //cifrarCaracteresDeUri(CypherSDES.file1);
                 String text = "";
                 for(int i = 0; i < labelContenido.getText().toString().toCharArray().length; i++){
                     text += cifrado.Cifrar(labelContenido.getText().toString().charAt(i));
                 }
-                escribirCaracterAUri(CypherSDES.file2, text);
-                /*int cont = 0;
-                Character entrada = leerCaracterDeUri(CypherSDES.file1, cont);
-                while(entrada != '\u0000'){
-                    escribirCaracterAUri(CypherSDES.file2, cifrado.Cifrar(entrada));
-                    cont++;
-                    entrada = leerCaracterDeUri(CypherSDES.file1, cont);
-                }*/
+                escribirTextoAUri(CypherSDES.file2, text);
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast message = Toast.makeText(getApplicationContext(), "Error al escribir al archivo cifrado", Toast.LENGTH_LONG);
@@ -194,7 +186,7 @@ public class CypherSDES extends AppCompatActivity {
                 startActivity(new Intent(CypherSDES.this, MainActivity.class));
             }
         } else if (!name.contains(".scif")) {
-            Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .cif para guardar el archivo cifrado", Toast.LENGTH_LONG);
+            Toast message = Toast.makeText(getApplicationContext(), "Por favor utilice la extension .scif para guardar el archivo cifrado", Toast.LENGTH_LONG);
             message.show();
         }
     }
@@ -248,53 +240,11 @@ public class CypherSDES extends AppCompatActivity {
         return stringbuilder.toString();
     }
 
-    public Character leerCaracterDeUri(Uri uri, int posicion) throws IOException{
-        InputStream input = getContentResolver().openInputStream(uri);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        int cont = 0;
-        int line = 0;
-        while ((line = reader.read()) != -1) {
-            if(cont == posicion){
-                char val = (char) line;
-                return val;
-            }
-            else{
-                cont++;
-            }
-        }
-        input.close();
-        reader.close();
-        return '\u0000';
-    }
-
-    public void cifrarCaracteresDeUri(Uri uri) throws IOException{
-        InputStream input = getContentResolver().openInputStream(uri);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        int line = 0;
-        while ((line = reader.read()) != -1) {
-            char val = (char) line;
-            escribirCaracterAUri(CypherSDES.file2, cifrado.Cifrar(val));
-        }
-        input.close();
-        reader.close();
-    }
-
-    public void escribirCaracterAUri(Uri uri, Character caracter) throws IOException{
+    public void escribirTextoAUri(Uri uri, String texto) throws IOException{
         ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(uri, "wa");
         FileOutputStream fos = new FileOutputStream(file.getFileDescriptor());
         Writer wr = new OutputStreamWriter(fos, UTF8);
-        wr.write(caracter);
-        wr.flush();
-        wr.close();
-        fos.close();
-        file.close();
-    }
-
-    public void escribirCaracterAUri(Uri uri, String caracter) throws IOException{
-        ParcelFileDescriptor file = this.getContentResolver().openFileDescriptor(uri, "wa");
-        FileOutputStream fos = new FileOutputStream(file.getFileDescriptor());
-        Writer wr = new OutputStreamWriter(fos, UTF8);
-        wr.write(caracter);
+        wr.write(texto);
         wr.flush();
         wr.close();
         fos.close();
@@ -320,5 +270,6 @@ public class CypherSDES extends AppCompatActivity {
         labelArchivo.setText(null);
         labelContenido.setText(null);
         txtClave.setText(null);
+        cifrado = new SDES();
     }
 }
