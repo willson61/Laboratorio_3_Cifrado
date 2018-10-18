@@ -4,7 +4,7 @@ public class Permutaciones {
     public String Permutacion10(String binario){
         String binarioReordenado = "";
         char[]  Entrada = binario.toCharArray();
-        char[]  Permutacion = {0, 2, 1, 5, 4, 6, 9, 8, 3, 7}; //determina el orden de la permutacion
+        char[]  Permutacion = {2, 4, 1, 6, 3, 9, 0, 8, 7, 5}; //determina el orden de la permutacion
         char[] Salida = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 10; i++){
             Salida[i] = Entrada[Permutacion[i]];
@@ -18,7 +18,7 @@ public class Permutaciones {
     public String Permutacion8(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {9, 3, 5, 1, 0, 4, 8, 7, 2, 6}; //determina el orden de la permutacion
+        char[] Permutacion = {5, 2, 6, 3, 7, 4, 9, 8, 0, 1}; //determina el orden de la permutacion
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 10; i++){
             Salida[i] = Entrada[Permutacion[i]];
@@ -49,7 +49,7 @@ public class Permutaciones {
         char[] Permutacion = {3, 0, 2, 4, 6, 1, 7, 5};
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
-            Salida[Permutacion[i]] = Entrada[i];
+            Salida[i] = Entrada[Permutacion[i]];
         }
         for (int i = 0; i < 8; i++){
             binarioReordenado += Salida[i];
@@ -60,7 +60,7 @@ public class Permutaciones {
     public String ExpandiryPermutar(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {3, 2, 1, 0, 3, 1, 0, 2};//determina el orden de la permutacion
+        char[] Permutacion = {3, 0, 1, 2, 1, 2, 3, 0};//determina el orden de la permutacion
         char[] Salida = {0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0; i < 8; i++){
             Salida[i] = Entrada[Permutacion[i]];
@@ -74,7 +74,7 @@ public class Permutaciones {
     public String Permutacion4(String binario){
         String binarioReordenado = "";
         char[] Entrada = binario.toCharArray();
-        char[] Permutacion = {0, 3, 1, 2};//determina el orden de la permutacion
+        char[] Permutacion = {1, 3, 2, 0};//determina el orden de la permutacion
         char[] Salida = {0, 0, 0, 0};
         for (int i = 0; i < 4; i++){
             Salida[i] = Entrada[Permutacion[i]];
