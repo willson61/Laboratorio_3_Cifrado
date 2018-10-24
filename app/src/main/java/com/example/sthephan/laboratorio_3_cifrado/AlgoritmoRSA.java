@@ -1,6 +1,7 @@
 package com.example.sthephan.laboratorio_3_cifrado;
 
 import java.math.BigInteger;
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -61,18 +62,54 @@ public class AlgoritmoRSA {
         BigInteger numeroPrimo = new BigInteger("0");
         boolean esPrimo = false;
         BigInteger dos = new BigInteger("2");
-        //BigInteger uno = new BigInteger("1");
-        BigInteger contador = numero.divide(dos);
+        BigInteger posiblePrimo = numero.divide(dos);
         BigInteger contador2 = new BigInteger("2");
-
-        while(!esPrimo || contador.compareTo(numero) < 0) {
+        boolean encontroPrimo = false;
+        while (!encontroPrimo && contador2.compareTo(numero) < 0){
+            while (!esPrimo || contador2.compareTo(posiblePrimo) < 0){
+                if (posiblePrimo.mod(contador2).equals(BigInteger.ZERO)){
+                    esPrimo = true;
+                }else{
+                    contador2 = contador2.add(BigInteger.ONE);
+                }
+            }
+            if (contador2.compareTo(numero) == 0){
+                encontroPrimo = true;
+                numeroPrimo = posiblePrimo;
+            }else {
+                posiblePrimo = posiblePrimo.add(BigInteger.ONE);
+            }
+        }
+        /*while(!esPrimo || contador.compareTo(numero) < 0) {
             if (contador.mod(contador2).equals(BigInteger.ZERO)) {
                 esPrimo = true;
+                contador2 = BigInteger.ZERO;
             } else {
                 contador2 = contador2.add(BigInteger.ONE);
             }
+        }*/
+        if (encontroPrimo){
+            return numeroPrimo;
+        }else {
+            return BigInteger.ZERO;
         }
-        return contador2;
+    }
+
+    public boolean esPrimo(BigInteger numero){
+        BigInteger contador = new BigInteger("2");
+        boolean primo = false;
+        while (!primo || contador.compareTo(numero) < 0){
+            if (numero.mod(contador).equals(BigInteger.ZERO)){
+                primo = true;
+            }else {
+                contador = contador.add(BigInteger.ONE);
+            }
+        }
+        if (contador.compareTo(numero) == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String cifrar(String cadena, int e, int n){
