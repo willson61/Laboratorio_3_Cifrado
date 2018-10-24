@@ -1,5 +1,6 @@
 package com.example.sthephan.laboratorio_3_cifrado;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,67 +23,89 @@ public class AlgoritmoRSA {
             1307.0, 1319.0, 1321.0, 1327.0, 1361.0, 1367.0, 1373.0, 1381.0, 1399.0, 1409.0, 1423.0, 1427.0, 1429.0,
             1433.0, 1439.0, 1447.0, 1451.0, 1453.0, 1459.0, 1471.0, 1481.0, 1483.0, 1487.0, 1489.0, 1493.0, 1499.0};
 
-    public void GenerarClaves(double primmop, double primoq){
-        double n = 0;
-        double fi = 0;
-        double e = 0;
-        double d = 1;
-        n = primmop * primoq;
-        fi = (primmop - 1) * (primoq - 1);
+    public BigInteger E = new BigInteger("0");
+    public BigInteger D = new BigInteger("0");
+    public BigInteger ene = new BigInteger("0");
+
+    public void GenerarClaves(BigInteger primmop, BigInteger primoq){
+        //BigInteger n = 0;
+        //BigInteger fi = 0;
+        BigInteger e = new BigInteger("0");
+        BigInteger d = BigInteger.ONE;
+        BigInteger uno = new BigInteger("1");
+        BigInteger n = primmop.multiply(primoq);
+        BigInteger fi = (primmop.subtract(uno)).multiply(primoq.subtract(uno));
         e = encontrarPrimo(fi);
         boolean encontrarD = false;
         while (!encontrarD){
-            if (d*e%fi == 1){
+            if (d.multiply(e.mod(fi)).equals(BigInteger.ONE)){
                 encontrarD = true;
             }else{
-                d++;
+                d = d.add(BigInteger.ONE);
             }
         }
+        E = e;
+        D = d;
+        ene = n;
     }
 
-    private String getClavePrivada(double n, double d){
+    private String getClavePrivada(BigInteger n, BigInteger d){
         return String.valueOf(n) + "," + String.valueOf(d);
     }
 
-    private String getClavePublica(double n, double e){
+    private String getClavePublica(BigInteger n, BigInteger e){
         return String.valueOf(n) + "," + String.valueOf(e);
     }
 
-    private double encontrarPrimo(double numero){
-        double numeroPrimo = 0.0;
+    private BigInteger encontrarPrimo(BigInteger numero){
+        BigInteger numeroPrimo = new BigInteger("0");
         boolean esPrimo = false;
-        int contador = (int) numero/2;
-        int contador2 = 2;
+        BigInteger dos = new BigInteger("2");
+        //BigInteger uno = new BigInteger("1");
+        BigInteger contador = numero.divide(dos);
+        BigInteger contador2 = new BigInteger("2");
 
-        while(!esPrimo || contador < numero){
-            if (contador%contador2 == 0){
+        while(!esPrimo || contador.compareTo(numero) < 0) {
+            if (contador.mod(contador2).equals(BigInteger.ZERO)) {
                 esPrimo = true;
-            }else{
-                contador2++;
+            } else {
+                contador2 = contador2.add(BigInteger.ONE);
             }
         }
         return contador2;
     }
 
-    public String cifrar(String cadena, double e, double n){
+    public String cifrar(String cadena, int e, int n){
         String textoCifrado = "";
+        BigInteger bige = BigInteger.valueOf(e);
+        BigInteger bign = BigInteger.valueOf(n);
         for (int i = 0; i < cadena.length(); i++){
             char caracter = cadena.charAt(i);
-            int N = (int) caracter;
-            double C = Math.pow(N, e)%n;
-            textoCifrado += (char) C;
+            BigInteger N = BigInteger.valueOf((int) caracter);
+            BigInteger C = N.modPow(bige, bign);//Math.pow(N, e)%n;
+            textoCifrado += (char) C.intValue();
         }
         return textoCifrado;
     }
 
-    public String descifrar(String cadena, double d, double n){
+    public String descifrar(String cadena, int d, int n){
         String textoDescifrado = "";
+        BigInteger bigd = BigInteger.valueOf(d);
+        BigInteger bign = BigInteger.valueOf(n);
         for (int i = 0; i < cadena.length(); i++){
             char caracter = cadena.charAt(i);
-            int C = (int) caracter;
-            double N = Math.pow(C, d)%n;
-            textoDescifrado += (char) N;
+            BigInteger C = BigInteger.valueOf((int) caracter);
+            BigInteger N = C.modPow(bigd, bign);//Math.pow(C, d)%n;
+            textoDescifrado += (char) N.intValue();
         }
         return textoDescifrado;
     }
+
+    /*public void obtenerClavePrivada(){
+
+    }
+
+    public void obtenerClavePublica(){
+
+    }*/
 }
