@@ -23,7 +23,10 @@
         <activity android:name=".CypherSDES" />
         <activity android:name=".CypherSDESResult" />
         <activity android:name=".DecypherSDES" />
-        <activity android:name=".DecypherSDESResult"></activity>
+        <activity android:name=".DecypherSDESResult" />
+        <activity android:name=".GenerarLlavesRSA" />
+        <activity android:name=".CypherRSA" />
+        <activity android:name=".DecypherRSA"></activity>
     </application>
 
 </manifest>

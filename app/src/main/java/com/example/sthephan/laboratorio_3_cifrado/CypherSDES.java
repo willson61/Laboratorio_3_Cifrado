@@ -35,6 +35,8 @@ import butterknife.OnClick;
 public class CypherSDES extends AppCompatActivity {
 
     private static Charset UTF8 = Charset.forName("UTF-8");
+    private static Charset ISO = Charset.forName("ISO-8859-1");
+    private static Charset ANSI = Charset.forName("Cp1252");
     public static Uri file1;
     public static Uri file2;
     public SDES cifrado = new SDES();
@@ -228,7 +230,9 @@ public class CypherSDES extends AppCompatActivity {
 
     private String leerTextoDeUri(Uri uri) throws IOException {
         InputStream input = getContentResolver().openInputStream(uri);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        InputStreamReader isf = new InputStreamReader(input, UTF8);
+        String enc = isf.getEncoding();
+        BufferedReader reader = new BufferedReader(isf);
         StringBuilder stringbuilder = new StringBuilder();
         int line = 0;
         while ((line = reader.read()) != -1) {

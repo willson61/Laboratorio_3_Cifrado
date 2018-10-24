@@ -21,4 +21,11 @@
     <string name="bienvenido_al_laboratorio_no_3_algoritmos_de_cifrado">Bienvenido al Laboratorio No. 3: Algoritmos de Cifrado</string>
     <string name="para_empezar_seleccione_una_de_las_opciones_del_menu_de_la_esquina_superior_derecha">Para empezar seleccione una de las opciones del menu de la esquina superior derecha.</string>
     <string name="autores_nwilliams_monterroso_contreras_1021417_njose_fuentes_araujo_1168315">Autores: \nWilliams Monterroso Contreras #1021417 \nJose Fuentes Araujo #1168315</string>
+    <string name="generar_llaves">Generar Llaves</string>
+    <string name="ingrese_el_valor_de_p_para_generar_las_llaves">Ingrese el valor de P para generar las llaves</string>
+    <string name="ingrese_el_valor_de_q_para_generar_las_llaves">Ingrese el valor de Q para generar las llaves</string>
+    <string name="busque_el_archivo_con_la_llava_de_cifrado">Busque el archivo con la llava de cifrado:</string>
+    <string name="busque_el_archivo_con_la_llava_de_decifrado">Busque el archivo con la llava de decifrado:</string>
+    <string name="busque_el_archivo_con_el_contenido_a_cifrar">Busque el archivo con el contenido a cifrar:</string>
+    <string name="busque_el_archivo_con_el_contenido_a_decifrar">Busque el archivo con el contenido a decifrar:</string>
 </resources>

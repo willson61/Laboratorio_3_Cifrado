@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".CypherRSA">
+
+        <Button
+            android:id="@+id/btnCifrar"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelContenido"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/cifrar"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelContenido"
+            android:layout_width="wrap_content"
+            android:layout_height="227dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="290dp"
+            android:layout_marginEnd="20dp"
+            android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/labelArchivoBusqueda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/labelGrafico1"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="260dp" />
+
+        <TextView
+            android:id="@+id/labelGrafico2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="260dp"
+            android:text="@string/nombre_del_archivo" />
+
+        <Button
+            android:id="@+id/btnCancelarArchivo"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="191dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/cancelar"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnBuscarArchivo"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="191dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/buscar"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelArchivoLlave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/labelGrafico1"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="110dp" />
+
+        <TextView
+            android:id="@+id/labelGrafico1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="110dp"
+            android:text="@string/nombre_del_archivo" />
+
+        <Button
+            android:id="@+id/btnCancelarLlave"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="41dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/cancelar"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnBuscarLlave"
+            style="@android:style/Widget.Button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="41dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/buscar"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/labelGrafico3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/btnBuscarLlave"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:text="@string/busque_el_archivo_con_la_llava_de_cifrado" />
+
+        <TextView
+            android:id="@+id/labelGrafico4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/btnBuscarLlave"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="164dp"
+            android:text="@string/busque_el_archivo_con_el_contenido_a_cifrar" />
+    </RelativeLayout>
+</ScrollView>
