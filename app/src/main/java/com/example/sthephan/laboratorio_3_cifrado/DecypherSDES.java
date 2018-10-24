@@ -34,6 +34,8 @@ import butterknife.OnClick;
 public class DecypherSDES extends AppCompatActivity {
 
     private static Charset UTF8 = Charset.forName("UTF-8");
+    private static Charset ISO = Charset.forName("ISO-8859-1");
+    private static Charset ANSI = Charset.forName("Cp1252");
     public static Uri file1;
     public static Uri file2;
     public static String nombreArchivo;
@@ -222,7 +224,7 @@ public class DecypherSDES extends AppCompatActivity {
 
     private String leerTextoDeUri(Uri uri) throws IOException {
         InputStream input = getContentResolver().openInputStream(uri);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, UTF8));
         StringBuilder stringbuilder = new StringBuilder();
         int line = 0;
         while ((line = reader.read()) != -1) {
