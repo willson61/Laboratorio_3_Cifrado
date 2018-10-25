@@ -43,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(MainActivity.this, DecypherSDES.class));
                 return true;
+            case R.id.opGenerarLlaves:
+                finish();
+                startActivity(new Intent(MainActivity.this, GenerarLlavesRSA.class));
+                return true;
+            case R.id.opCifrarRSA:
+                finish();
+                startActivity(new Intent(MainActivity.this, CypherRSA.class));
+                return true;
+            case R.id.opDecifrarRSA:
+                finish();
+                startActivity(new Intent(MainActivity.this, DecypherRSA.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

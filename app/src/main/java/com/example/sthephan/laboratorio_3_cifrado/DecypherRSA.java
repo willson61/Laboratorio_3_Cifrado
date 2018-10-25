@@ -37,6 +37,7 @@ public class DecypherRSA extends AppCompatActivity {
     public static Uri file2;
     public static Uri file3;
     public static String nombreArchivo;
+    AlgoritmoRSA decifrado = new AlgoritmoRSA();
 
     @BindView(R.id.labelContenido)
     TextView labelContenido;
@@ -157,7 +158,7 @@ public class DecypherRSA extends AppCompatActivity {
             case R.id.btnCancelarArchivo:
                 labelArchivoBusqueda.setText("");
                 labelContenido.setText("");
-                CypherRSA.file2 = null;
+                DecypherRSA.file2 = null;
                 break;
             case R.id.btnBuscarArchivo:
                 Intent intent = new Intent()
@@ -168,7 +169,7 @@ public class DecypherRSA extends AppCompatActivity {
                 break;
             case R.id.btnCancelarLlave:
                 labelArchivoLlave.setText("");
-                CypherRSA.file1 = null;
+                DecypherRSA.file1 = null;
                 break;
             case R.id.btnBuscarLlave:
                 Intent intent2 = new Intent()
@@ -207,7 +208,7 @@ public class DecypherRSA extends AppCompatActivity {
         else if (requestCode == 1234 && resultCode == RESULT_OK ) {
             try{
                 Uri selectedFile = data.getData();
-                if (name.contains(".rascif")) {
+                if (name.contains(".rsacif")) {
                     DecypherRSA.nombreArchivo = name;
                     labelArchivoBusqueda.setText(name);
                     labelContenido.setText(leerTextoDeUri(selectedFile));
@@ -217,7 +218,7 @@ public class DecypherRSA extends AppCompatActivity {
                 } else {
                     labelArchivoBusqueda.setText(null);
                     DecypherRSA.file2 = null;
-                    Toast message = Toast.makeText(getApplicationContext(), "El archivo seleccionado no posee la extension .rascif del contenido a decifrar. Por favor seleccione un archivo de extension .rascif", Toast.LENGTH_LONG);
+                    Toast message = Toast.makeText(getApplicationContext(), "El archivo seleccionado no posee la extension .rsacif del contenido a decifrar. Por favor seleccione un archivo de extension .rsacif", Toast.LENGTH_LONG);
                     message.show();
                 }
             }catch (Exception e){
@@ -231,8 +232,30 @@ public class DecypherRSA extends AppCompatActivity {
                 Uri selectedFile = data.getData();
                 if (name.contains(".txt")) {
                     DecypherRSA.file3 = selectedFile;
-                    Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
-                    message.show();
+                    String llave = leerTextoDeUri(DecypherRSA.file1);
+                    String textoCifrado = leerTextoDeUri(DecypherRSA.file2);
+                    String textoDecifrado = "";
+                    if(textoCifrado.equals("")){
+                        Toast message = Toast.makeText(getApplicationContext(), "El archivo de contenido a cifrar se encuentra vacio", Toast.LENGTH_LONG);
+                        message.show();
+                    }
+                    else{
+                        if(llave.equals("")){
+                            Toast message = Toast.makeText(getApplicationContext(), "El archivo de llave se encuentra vacio", Toast.LENGTH_LONG);
+                            message.show();
+                        }
+                        else{
+                            String[] val = llave.split(",");
+                            int n = Integer.parseInt(val[0]);
+                            int d = Integer.parseInt(val[1]);
+                            textoDecifrado = decifrado.descifrar(textoCifrado, d, n);
+                            escribirTextoAUri(DecypherRSA.file3, textoDecifrado);
+                            finish();
+                            startActivity(new Intent(DecypherRSA.this, MainActivity.class));
+                            Toast message = Toast.makeText(getApplicationContext(), "Archivo creado y decifrado completado exitosamente", Toast.LENGTH_LONG);
+                            message.show();
+                        }
+                    }
                 } else {
                     DecypherRSA.file3 = null;
                     Toast message = Toast.makeText(getApplicationContext(), "El nombre de archivo seleccionado no posee la extension .txt del resultado del decifrado. Por favor escriba un nombre de archivo con extension .txt", Toast.LENGTH_LONG);

@@ -35,10 +35,16 @@ public class AlgoritmoRSA {
         BigInteger uno = new BigInteger("1");
         BigInteger n = primmop.multiply(primoq);
         BigInteger fi = (primmop.subtract(uno)).multiply(primoq.subtract(uno));
-        e = encontrarPrimo(fi);
+        //e = encontrarPrimo(fi);
+        for (BigInteger i = new BigInteger("3"); i.compareTo(fi) == -1; i = i.add(new BigInteger("2"))) {
+            if(i.gcd(fi).compareTo(new BigInteger("1")) == 0){
+                e = i;
+                break;
+            }
+        }
         boolean encontrarD = false;
         while (!encontrarD){
-            if (d.multiply(e.mod(fi)).equals(BigInteger.ONE)){
+            if (d.multiply(e).mod(fi).equals(BigInteger.ONE)){
                 encontrarD = true;
             }else{
                 d = d.add(BigInteger.ONE);
@@ -49,30 +55,58 @@ public class AlgoritmoRSA {
         ene = n;
     }
 
-    private String getClavePrivada(BigInteger n, BigInteger d){
-        return String.valueOf(n) + "," + String.valueOf(d);
+    public String getClavePrivada(){
+        return String.valueOf(ene) + "," + String.valueOf(D);
     }
 
-    private String getClavePublica(BigInteger n, BigInteger e){
-        return String.valueOf(n) + "," + String.valueOf(e);
+    public String getClavePublica(){
+        return String.valueOf(ene) + "," + String.valueOf(E);
     }
 
     private BigInteger encontrarPrimo(BigInteger numero){
         BigInteger numeroPrimo = new BigInteger("0");
         boolean esPrimo = false;
         BigInteger dos = new BigInteger("2");
-        //BigInteger uno = new BigInteger("1");
-        BigInteger contador = numero.divide(dos);
+        BigInteger posiblePrimo = numero.divide(dos);
         BigInteger contador2 = new BigInteger("2");
-
-        while(!esPrimo || contador.compareTo(numero) < 0) {
-            if (contador.mod(contador2).equals(BigInteger.ZERO)) {
-                esPrimo = true;
+        boolean encontroPrimo = false;
+        while (!encontroPrimo && contador2.compareTo(numero) < 0) {
+            while (!esPrimo && contador2.compareTo(posiblePrimo) < 0) {
+                if (posiblePrimo.mod(contador2).equals(BigInteger.ZERO)) {
+                    esPrimo = true;
+                } else {
+                    contador2 = contador2.add(BigInteger.ONE);
+                }
+            }
+            if (contador2.compareTo(numero) == 0) {
+                encontroPrimo = true;
+                numeroPrimo = posiblePrimo;
             } else {
-                contador2 = contador2.add(BigInteger.ONE);
+                posiblePrimo = posiblePrimo.add(BigInteger.ONE);
             }
         }
-        return contador2;
+        if (encontroPrimo){
+            return numeroPrimo;
+        }else {
+            return BigInteger.ZERO;
+        }
+    }
+
+    public boolean esPrimo(BigInteger numero){
+        BigInteger contador = new BigInteger("2");
+        boolean primo = false;
+        while (!primo || contador.compareTo(numero) < 0){
+            if (numero.mod(contador).equals(BigInteger.ZERO)){
+                primo = true;
+            }else {
+                contador = contador.add(BigInteger.ONE);
+            }
+        }
+        if (contador.compareTo(numero) == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String cifrar(String cadena, int e, int n){

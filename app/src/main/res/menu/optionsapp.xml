@@ -15,4 +15,13 @@
     <item
         android:id="@+id/opDecifradoSDES"
         android:title="@string/decifrar_sdes" />
+    <item
+        android:id="@+id/opGenerarLlaves"
+        android:title="@string/generar_llaves_rsa" />
+    <item
+        android:id="@+id/opCifrarRSA"
+        android:title="@string/cifrar_rsa" />
+    <item
+        android:id="@+id/opDecifrarRSA"
+        android:title="@string/decifrar_rsa" />
 </menu>

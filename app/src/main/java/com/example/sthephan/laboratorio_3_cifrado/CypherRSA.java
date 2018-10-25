@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ public class CypherRSA extends AppCompatActivity {
     public static Uri file2;
     public static Uri file3;
     public static String nombreArchivo;
+    AlgoritmoRSA cifrado = new AlgoritmoRSA();
 
     @BindView(R.id.labelContenido)
     TextView labelContenido;
@@ -229,10 +231,32 @@ public class CypherRSA extends AppCompatActivity {
         else if (requestCode == 12345 && resultCode == RESULT_OK ) {
             try{
                 Uri selectedFile = data.getData();
-                if (name.contains(".rascif")) {
+                if (name.contains(".rsacif")) {
                     CypherRSA.file3 = selectedFile;
-                    Toast message = Toast.makeText(getApplicationContext(), "Archivo seleccionado exitosamente", Toast.LENGTH_LONG);
-                    message.show();
+                    String llave = leerTextoDeUri(CypherRSA.file1);
+                    String texto = leerTextoDeUri(CypherRSA.file2);
+                    String textoCifrado = "";
+                    if(texto.equals("")){
+                        Toast message = Toast.makeText(getApplicationContext(), "El archivo de contenido a cifrar se encuentra vacio", Toast.LENGTH_LONG);
+                        message.show();
+                    }
+                    else{
+                        if(llave.equals("")){
+                            Toast message = Toast.makeText(getApplicationContext(), "El archivo de llave se encuentra vacio", Toast.LENGTH_LONG);
+                            message.show();
+                        }
+                        else{
+                            String[] val = llave.split(",");
+                            int n = Integer.parseInt(val[0]);
+                            int e = Integer.parseInt(val[1]);
+                            textoCifrado = cifrado.cifrar(texto, e, n);
+                            escribirTextoAUri(CypherRSA.file3, textoCifrado);
+                            finish();
+                            startActivity(new Intent(CypherRSA.this, MainActivity.class));
+                            Toast message = Toast.makeText(getApplicationContext(), "Archivo creado y cifrado completado exitosamente", Toast.LENGTH_LONG);
+                            message.show();
+                        }
+                    }
                 } else {
                     CypherRSA.file3 = null;
                     Toast message = Toast.makeText(getApplicationContext(), "El nombre del archivo seleccionado no posee la extension .rascif del resultado del cifrado. Por favor escriba un nombre de archivo con extension .rascif", Toast.LENGTH_LONG);
@@ -240,7 +264,7 @@ public class CypherRSA extends AppCompatActivity {
                 }
             }catch (Exception e){
                 e.printStackTrace();
-                Toast message = Toast.makeText(getApplicationContext(), "Error en la creacion del archivo", Toast.LENGTH_LONG);
+                Toast message = Toast.makeText(getApplicationContext(), "Error en la creacion y cifrado del archivo", Toast.LENGTH_LONG);
                 message.show();
             }
         }

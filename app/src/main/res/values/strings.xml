@@ -28,4 +28,7 @@
     <string name="busque_el_archivo_con_la_llava_de_decifrado">Busque el archivo con la llava de decifrado:</string>
     <string name="busque_el_archivo_con_el_contenido_a_cifrar">Busque el archivo con el contenido a cifrar:</string>
     <string name="busque_el_archivo_con_el_contenido_a_decifrar">Busque el archivo con el contenido a decifrar:</string>
+    <string name="generar_llaves_rsa">Generar Llaves RSA</string>
+    <string name="cifrar_rsa">Cifrar RSA</string>
+    <string name="decifrar_rsa">Decifrar RSA</string>
 </resources>
