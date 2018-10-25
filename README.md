@@ -14,3 +14,5 @@ Aqui estan algunas consireciones que se deben de tener a la hora de la prueba de
 * Si desea ver el resultado de decifrado del archivo de algun algoritmo se puede hacer simplemente al seleccionar el archivo en alguna 
   de las vistas de cifrado que son capaces de mostrar archivos con extension .txt.
 * Para ver las opciones de cifrado se debe dar click en el boton de la esquina superior derecha de la ventana principal de la aplicacion.
+* Para el cifrado RSA se realizaron pruebas existosas en la generacion de llaves con numeros primos 11, 13 como p y q. Y 223 con 227, lo
+  que nos indica una funcionalidad del cifrado con numeros primos desde 11 hasta el 227.
